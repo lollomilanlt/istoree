@@ -1,0 +1,68 @@
+body {margin-right: 0px;
+	   margin-top: 0px;	
+	   padding-top: 0px;
+	   margin-left: 0px;	 
+       font-family: 'Lato'; 	   
+	   }
+.head{
+		 width: 100%;
+		 background: #008080;
+		 height: 80px;
+		 text-align: center;
+}
+.blu{
+		
+		 background: #008080;
+
+}
+
+.menu{
+	text-align: center;
+	width: 100px;
+	color: #e4e4e4;
+	
+	
+}
+a{
+	color: #e4e4e4;
+	
+}
+
+.logtab
+{
+	padding-left: 20px;
+	padding-right: 20px;
+	
+
+}
+
+.sconto
+{
+	color:#f58337 ;
+	font-weight:bold;
+	
+}
+form { display: inline;}
+
+font-family: 'Lato', sans-serif;
+
+.orange
+{
+ color:#FFAA00;	
+	
+	
+	
+	
+}
+
+a 
+{
+    text-decoration: none; 
+    
+    color: #FFFFFF;
+}
+ 
+a:hover
+{
+    color: #FFFFFF;
+}
