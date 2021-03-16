@@ -1,12 +1,12 @@
     <?php
-        $conn = mysql_connect("localhost","lorenzo","lorenzo");
+        $conn = mysqli_connect("localhost","lorenzo","lorenzo");
         if(!$conn)
         {
             echo "Connessione fallita";
             exit;
         }
         
-        $DB = mysql_select_db("my_istoree");
+        $DB = mysqli_select_db($conn,"my_istoree");
         if(!$DB)
         {
             echo "Selezione DB fallita";
@@ -14,7 +14,7 @@
         }
         
         $query= "select * from utente";
-        $result= mysql_query($query);
+        $result= mysqli_query($conn,$query);
         if(!$result)
         {
             echo "Query fallita";
@@ -23,7 +23,7 @@
         
 
         $accesso=0;
-        while($Dati = mysql_fetch_object($result))
+        while($Dati = mysqli_fetch_object($result))
         {
 			if(($_POST['user']==$Dati->username) && ($_POST['pass']==$Dati->password))	
 			{
@@ -53,5 +53,5 @@
 		}
 
         
-        mysql_close($conn);
+        mysqli_close($conn);
     ?>

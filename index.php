@@ -41,7 +41,7 @@
 					//Tendina produttori
 							echo "&nbsp&nbsp&nbsp&nbspProduttore:&nbsp&nbsp&nbsp&nbsp";
 							$query= "select * from produttore";
-							$result= mysqli_query($query);
+							$result= mysqli_query($conn,$query);
 							if(!$result)
 							{
 								echo "Query fallita";
@@ -70,7 +70,7 @@
 							}
 							echo "<select class=\"form-control\"  name=\"cat\">";
 							echo "<option value=\"null\">Categoria</option>";
-							while($Dati = mysqli_fetch_object($conn,$result))
+							while($Dati = mysqli_fetch_object($result))
 							{
 								
 								echo "<option value=\"".$Dati->Descrizione."\">".$Dati->Descrizione."</option>";
@@ -110,7 +110,7 @@
 										echo "Query fallita";
 										exit;
 									}
-									while($D = mysqli_fetch_object($conn,$r))
+									while($D = mysqli_fetch_object($r))
 									{
 										$user=$D->username;
 									}
@@ -207,7 +207,7 @@
 				
 			
 			$sc=0;
-			while($Dati = mysqli_fetch_object($conn,$result))
+			while($Dati = mysqli_fetch_object($result))
 			{	
 				if($sc%2==0)
 					$color="#C6C6FF";
@@ -226,7 +226,7 @@
 					//exit;
 				}
 				
-				while($innerDati = mysqli_fetch_object($conn,$innerres))
+				while($innerDati = mysqli_fetch_object($innerres))
 						$sconto=$innerDati->sconto;
 
 				if($sconto!=0)

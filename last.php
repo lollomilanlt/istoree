@@ -19,14 +19,14 @@
 						<a href=\"index.php\"><img src=\"images/logo.png\" width=\"100px\"></a>
 						</td>
 						<td valign=\"center\">";
-							$conn = mysql_connect("localhost","lorenzo","lorenzo");
+							$conn = mysqli_connect("localhost","lorenzo","lorenzo");
 							if(!$conn)
 							{
 								echo "Connessione fallita";
 								exit;
 							}
 							
-							$DB = mysql_select_db("my_istoree");
+							$DB = mysqli_select_db($conn,"my_istoree");
 							if(!$DB)
 							{
 								echo "Selezione DB fallita";
@@ -43,7 +43,7 @@
 					//Tendina produttori
 							echo "&nbsp&nbsp&nbsp&nbspProduttore:&nbsp&nbsp&nbsp&nbsp";
 							$query= "select * from produttore";
-							$result= mysql_query($query);
+							$result= mysqli_query($conn,$query);
 							if(!$result)
 							{
 								echo "Query fallita";
@@ -51,7 +51,7 @@
 							}
 							echo "<select class=\"form-control\" name=\"prod\">";
 							echo "<option value=\"null\">Produttore</option>";
-							while($Dati = mysql_fetch_object($result))
+							while($Dati = mysqli_fetch_object($result))
 							{
 								
 								echo "<option value=\"".$Dati->nome."\">".$Dati->nome."</option>";
@@ -63,7 +63,7 @@
 					//Tendina categorie		
 							echo "&nbsp&nbsp&nbsp&nbspCategoria:&nbsp&nbsp&nbsp&nbsp";
 							$query= "select * from categorie";
-							$result= mysql_query($query);
+							$result= mysqli_query($conn,$query);
 							if(!$result)
 							{
 								echo "Query fallita";
@@ -71,7 +71,7 @@
 							}
 							echo "<select class=\"form-control\"  name=\"cat\">";
 							echo "<option value=\"null\">Categoria</option>";
-							while($Dati = mysql_fetch_object($result))
+							while($Dati = mysqli_fetch_object($result))
 							{
 								
 								echo "<option value=\"".$Dati->Descrizione."\">".$Dati->Descrizione."</option>";
@@ -105,13 +105,13 @@
 								else
 								{	$idUser=$_SESSION['user'];
 									$q="select * from utente where codiceUtente=".$idUser;
-									$r= mysql_query($q);
+									$r= mysqli_query($conn,$q);
 									if(!$r)
 									{
 										echo "Query fallita";
 										exit;
 									}
-									while($D = mysql_fetch_object($r))
+									while($D = mysqli_fetch_object($r))
 									{
 										$user=$D->username;
 									}
@@ -194,7 +194,7 @@
 			
 			
 			
-			$result= mysql_query($query.$condition);
+			$result= mysqli_query($conn,$query.$condition);
 			if(!$result)
 			{
 				echo "Query fallita";
@@ -204,21 +204,21 @@
 				
 			
 			$sc=0;
-			while($Dati = mysql_fetch_object($result))
+			while($Dati = mysqli_fetch_object($result))
 			{	
 				$last=date('Y/m/d');
 				$nlast= strtotime ( '-30 day' , strtotime ( $last ) ) ;
 				$last=date('Y/m/d',$nlast);
 				
 				$innerquerytop="select * from prodotto where dataInserimento>'".$last."'";
-				$innerrestop=mysql_query($innerquerytop);
+				$innerrestop=mysqli_query($conn,$innerquerytop);
 				if(!$innerrestop)
 				{
 					echo "Query fallita";
 					//exit;
 				}
 				
-				while($innerDatitop = mysql_fetch_object($innerrestop))
+				while($innerDatitop = mysqli_fetch_object($innerrestop))
 				{		
 					if($Dati->idProdotto==$innerDatitop->idProdotto)
 					{
@@ -233,14 +233,14 @@
 						//calcolo sconto
 						$sconto=0;
 						$innerquery="select * from offerta where fkProdotto = ".$Dati->idProdotto;
-						$innerres=mysql_query($innerquery);
+						$innerres=mysqli_query($conn,$innerquery);
 						if(!$innerres)
 						{
 							echo "Query fallita";
 							//exit;
 						}
 						
-						while($innerDati = mysql_fetch_object($innerres))
+						while($innerDati = mysqli_fetch_object($innerres))
 								$sconto=$innerDati->sconto;
 
 						if($sconto!=0)
@@ -296,7 +296,7 @@
 				session_write_close();
 			}
 			
-			mysql_close($conn);
+			mysqli_close($conn);
 
 			?>
 		

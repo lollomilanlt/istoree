@@ -9,14 +9,14 @@
 	<p align="center">
     <?php
 		$id=-1;
-		$conn = mysql_connect("localhost","lorenzo","lorenzo");
+		$conn = mysqli_connect("localhost","lorenzo","lorenzo");
         if(!$conn)
         {
             echo "Connessione fallita";
             exit;
         }
         
-        $DB = mysql_select_db("my_istoree");
+        $DB = mysqli_select_db($conn,"my_istoree");
         if(!$DB)
         {
             echo "Selezione DB fallita";
@@ -26,14 +26,14 @@
 	
 	
 		$query= "select * from prodotto";
-        $result= mysql_query($query);
+        $result= mysqli_query($conn,$query);
         if(!$result)
         {
             echo "Query fallita";
             exit;
         }
 		
-		while($Dati = mysql_fetch_object($result))
+		while($Dati = mysqli_fetch_object($result))
         {
             $id=$Dati->idProdotto;
         }
@@ -65,7 +65,7 @@
 
         
         $query= "insert into prodotto(nome,versione,prezzo,lingua,fkProduttore,fkCategorie,img,dataInserimento) values ('".$_POST['nome']."','".$_POST['ver']."',".$_POST['prezzo'].",'".$_POST['lingua']."',".$_POST['prod'].",".$_POST['cat'].",'".$img_p."','".date('Y/m/d')."')";
-        $result= mysql_query($query);
+        $result= mysqli_query($conn,$query);
         if(!$result)
         {
             echo "Query fallita";
@@ -73,7 +73,7 @@
         }
 		else
 			echo "<b>Prodotto inserito correttamente!</b>";
-		mysql_close($conn);
+		mysqli_close($conn);
 		
 		
 		echo "<br/><i>sarai rindirizzato alla pagina principale tra 5 secondi</i>";

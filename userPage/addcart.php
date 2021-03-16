@@ -11,14 +11,14 @@ refreshare verso search page*/
 	$q=$_POST['num'];
 
 	
-	$conn = mysql_connect("localhost","istoree","lorenzo");
+	$conn = mysqli_connect("localhost","istoree","lorenzo");
 	if(!$conn)
 	{
 		echo "Connessione fallita";
 		exit;
 	}
 	
-	$DB = mysql_select_db("my_istoree");
+	$DB = mysqli_select_db($conn,"my_istoree");
 	if(!$DB)
 	{
 		echo "Selezione DB fallita";
@@ -26,7 +26,7 @@ refreshare verso search page*/
 	}
 
 	$query= "select * from carrello where fkProdotto=".$p." AND fkUtente=".$u;
-	$result= mysql_query($query);
+	$result= mysqli_query($conn,$query);
 	if(!$result)
 	{
 		echo "Query fallita";
@@ -34,7 +34,7 @@ refreshare verso search page*/
 	}
 	$pres=0;
 	
-	while($Dati = mysql_fetch_object($result))
+	while($Dati = mysqli_fetch_object($result))
 	{
 		if($Dati->fkProdotto)	
 		{
@@ -46,7 +46,7 @@ refreshare verso search page*/
 	if($pres==0)
 	{
 			$query= "insert into carrello values(".$u.",".$p.",".$q.")";
-			$result= mysql_query($query);
+			$result= mysqli_query($conn,$query);
 			if(!$result)
 			{
 				echo "Query fallita";
@@ -64,7 +64,7 @@ WHERE altro_campo = 'valore'
 		
 		
 			$query= "update carrello set quantita = ".$q." where fkProdotto=".$p." AND fkUtente=".$u;
-			$result= mysql_query($query);
+			$result= mysqli_query($conn,$query);
 			if(!$result)
 			{
 				echo "Query fallita";
@@ -72,7 +72,7 @@ WHERE altro_campo = 'valore'
 			}
 	}
 	
-	mysql_close($conn);
+	mysqli_close($conn);
 	
 	header( "refresh:0;url=../index.php");
 		
